@@ -6,19 +6,19 @@ import IconGithub from './icons/IconGithub.vue';
 <template>
   <div class="app-header">
     <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/projects">Projects</RouterLink>
+      <RouterLink class="link" to="/">Home</RouterLink>
+      <RouterLink class="link" to="/projects">Projects</RouterLink>
     </nav>
     <div class="center-icon">
       <img style="height:auto;" alt="" src="https://avatars.githubusercontent.com/u/46770859?v=4" width="56" height="56"
         class="avatar avatar-user width-full border color-bg-default">
     </div>
     <nav class="header-right">
-      <a href="https://github.com/CoroNaut?tab=repositories">
+      <a class="link" href="https://github.com/CoroNaut?tab=repositories">
         <IconGithub />
         CoroNaut
       </a>
-      <a href="https://github.com/Fractalyst?tab=repositories">
+      <a class="link" href="https://github.com/Fractalyst?tab=repositories">
         <IconGithub />
         Fractalyst
       </a>
@@ -43,10 +43,16 @@ import IconGithub from './icons/IconGithub.vue';
   position: sticky;
   top: 0;
   width: 100%;
-  background-color: dimgray;
+  background-color: var(--vt-c-white-soft);
   padding: 0 16px;
   font-size: 20px;
   display: flex;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-header {
+    background-color: var(--vt-c-black-soft);
+  }
 }
 
 nav {
