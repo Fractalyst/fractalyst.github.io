@@ -7,7 +7,7 @@ import IconGithub from './icons/IconGithub.vue';
   <div class="app-header">
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About me</RouterLink>
+      <RouterLink to="/projects">Projects</RouterLink>
     </nav>
     <div class="center-icon">
       <img style="height:auto;" alt="" src="https://avatars.githubusercontent.com/u/46770859?v=4" width="56" height="56"
