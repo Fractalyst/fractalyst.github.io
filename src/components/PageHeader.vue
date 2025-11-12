@@ -3,19 +3,18 @@ import { RouterLink } from "vue-router";
 import IconGithub from "./icons/IconGithub.vue";
 import IconDiscord from "./icons/IconDiscord.vue";
 import IconEmail from "./icons/IconEmail.vue";
-import IconHome from "./icons/IconHome.vue";
-import IconProjects from "./icons/IconProjects.vue";
+import { Icon } from "@iconify/vue";
 </script>
 
 <template>
   <div class="app-header">
     <nav>
       <RouterLink class="link" to="/">
-        <div class="router-icon"><IconHome /></div>
+        <div class="router-icon"><Icon icon="ic:outline-home" width="25" height="25" /></div>
         <div class="router-text">Home</div>
       </RouterLink>
       <RouterLink class="link" to="/projects">
-        <div class="router-icon"><IconProjects /></div>
+        <div class="router-icon"><Icon icon="mdi:book-outline" width="25" height="25" /></div>
         <div class="router-text">Projects</div>
       </RouterLink>
     </nav>

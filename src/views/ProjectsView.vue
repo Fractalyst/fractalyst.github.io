@@ -133,6 +133,7 @@ import IconVue from "@/components/icons/IconVue.vue";
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 64px 2rem 0;
+  height: fit-content;
 }
 
 @media (max-width: 768px) {

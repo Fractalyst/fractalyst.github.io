@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { usePreferredColorScheme } from "@vueuse/core";
+
+const preferredColor = usePreferredColorScheme();
+</script>
 <template>
   <svg
     width="25px"
@@ -10,13 +15,13 @@
       fill-rule="evenodd"
       clip-rule="evenodd"
       d="M9 7.00013H15V12.0001H9V7.00013ZM10.5 8.50013V10.5001H13.5V8.50013H10.5Z"
-      fill="#1F2328"
+      :fill="preferredColor === 'dark' ? '#E0DCD7' : '#1F2328'"
     />
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
       d="M18 4.00024H6V6.00016H4V7.50016H6V11.0112H4V12.5112H6V16.0223H4V17.5223H6V20.0002H18V4.00024ZM7.5 5.50024V18.5002H16.5V5.50024H7.5Z"
-      fill="#1F2328"
+      :fill="preferredColor === 'dark' ? '#E0DCD7' : '#1F2328'"
     />
   </svg>
 </template>
