@@ -15,12 +15,13 @@ import PageHeader from "./components/PageHeader.vue";
 <style scoped>
 .center-content {
   display: flex;
-  padding: 64px 0 0;
+  padding: 64px 0;
   width: 100%;
+  height: 100%;
 }
 
 header {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   left: 0;

@@ -638,11 +638,11 @@ onUnmounted(() => {
 
 <style scoped>
 .scroll-text {
+  flex: 1;
   border-top: 2px solid green;
   border-bottom: 2px solid green;
   border-radius: 16px;
   padding: 0 16px;
-  height: 100%;
   overflow: hidden;
   scroll-behavior: smooth;
   font-family: monospace;

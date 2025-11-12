@@ -37,6 +37,7 @@ import LanguageBlock from "@/components/LanguageBlock.vue";
 }
 
 .scrolling-container {
+  display: flex;
   z-index: 99;
   width: 40%;
   height: 70%;
@@ -88,6 +89,19 @@ import LanguageBlock from "@/components/LanguageBlock.vue";
   }
   .contact-link {
     color: var(--vt-c-black-soft);
+  }
+}
+
+@media (max-width: 768px) {
+  .objective-container {
+    display: block;
+    position: absolute;
+    margin: auto 0%;
+    width: 75%;
+  }
+  .scrolling-container {
+    width: 100%;
+    height: 80%;
   }
 }
 </style>
