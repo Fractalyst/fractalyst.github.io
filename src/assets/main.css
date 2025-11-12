@@ -1,19 +1,19 @@
-@import './base.css';
+@import "./base.css";
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
+  max-width: 1280px;
   font-weight: normal;
 }
 
-.link{
-  text-decoration: none;
-  color: var(--vt-c-text-link);
+.link {
   transition: 0.4s;
+  color: var(--vt-c-text-link);
+  text-decoration: none;
 }
 
 @media (hover: hover) {
   .link:hover {
-    background-color: var(--vt-c-text-link-hover)
+    background-color: var(--vt-c-text-link-hover);
   }
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import PageHeader from './components/PageHeader.vue';
+import { RouterView } from "vue-router";
+import PageHeader from "./components/PageHeader.vue";
 </script>
 
 <template>
@@ -8,30 +8,21 @@ import PageHeader from './components/PageHeader.vue';
     <PageHeader />
   </header>
   <div class="center-content">
-    <div class="view">
-      <RouterView />
-    </div>
+    <RouterView />
   </div>
 </template>
 
 <style scoped>
 .center-content {
   display: flex;
-  place-items: center;
+  padding: 64px 0 0;
+  width: 100%;
 }
 
 header {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
-}
-
-@media (min-width: 768px) {
-  .view {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 64px 2rem 0;
-  }
+  left: 0;
 }
 </style>

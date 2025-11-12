@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { sleep } from '@/scripts/utilities';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { sleep } from "@/scripts/utilities";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 
-import hljs from 'highlight.js/lib/core';
-import typescript from 'highlight.js/lib/languages/typescript';
-import csharp from 'highlight.js/lib/languages/csharp';
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('csharp', csharp);
+import hljs from "highlight.js/lib/core";
+import typescript from "highlight.js/lib/languages/typescript";
+import csharp from "highlight.js/lib/languages/csharp";
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("csharp", csharp);
 
 //const urls = [
 //    'https://github.com/CoroNaut/space_engineers/blob/main/IngameScripts/local/Java_AutoAscent/script.cs',
 //    'https://github.com/CoroNaut/space_engineers/blob/main/IngameScripts/local/Java_Power_Display/script.cs'
 //];
-
 
 const tempText = `﻿/*
         Created by JavaSkeptre
@@ -260,7 +259,7 @@ private void Run(string argument) {
             }
         }
     }
-}`
+}`;
 
 const tempText2 = `/*
  *   R e a d m e
@@ -556,97 +555,103 @@ public string FormatNum(double number) {
         return $"{res} {ordinals[ordinal]}W";
     }
     return $"{res}W";
-}`
+}`;
 
-let curText = 0
+let curText = 0;
 
-const scrollText = ref<string>(tempText)
+const scrollText = ref<string>(tempText);
 const scrollTextHighlighted = computed(() => {
-    return hljs.highlight(scrollText.value, { language: 'csharp' }).value
-})
+  return hljs.highlight(scrollText.value, { language: "csharp" }).value;
+});
 const containerRef = ref<HTMLDivElement | null>(null);
 
 async function fetchNewCodeBlock() {
-    try {
-        repeatAutoScrollingLoop()
-        scrollText.value = ''
-        if (containerRef.value) {
-            containerRef.value.scrollTop = 0;
-        }
-        if (curText == 0) {
-            scrollText.value = tempText
-            curText++
-        } else {
-            scrollText.value = tempText2
-            curText = 0;
-        }
-
-        //const response = await fetch(urls[0]!);
-        //const blob = await response.blob();
-        //const text = await blob.text();
-        //console.log(text)
-        //scrollText.value = text;
-
-    } catch (error) {
-        console.error('Error fetching code:', error);
+  try {
+    repeatAutoScrollingLoop();
+    scrollText.value = "";
+    if (containerRef.value) {
+      containerRef.value.scrollTop = 0;
     }
+    if (curText == 0) {
+      scrollText.value = tempText;
+      curText++;
+    } else {
+      scrollText.value = tempText2;
+      curText = 0;
+    }
+
+    //const response = await fetch(urls[0]!);
+    //const blob = await response.blob();
+    //const text = await blob.text();
+    //console.log(text)
+    //scrollText.value = text;
+  } catch (error) {
+    console.error("Error fetching code:", error);
+  }
 }
 
 // Setup auto-scrolling
 const scrollInterval = ref<number>();
 //const fetchInterval = ref<number>(window.setInterval(fetchNewCodeBlock, 120000))
-const scrollSpeed = 8;//pixels
+const scrollSpeed = 8; //pixels
 
 async function repeatAutoScrollingLoop() {
-    clearInterval(scrollInterval.value)
-    await sleep(1000)
-    if (!containerRef.value || (containerRef.value.scrollTop >= (containerRef.value.scrollHeight - containerRef.value.clientHeight))) {
-        return;
+  clearInterval(scrollInterval.value);
+  await sleep(1000);
+  if (
+    !containerRef.value ||
+    containerRef.value.scrollTop >=
+      containerRef.value.scrollHeight - containerRef.value.clientHeight
+  ) {
+    return;
+  }
+  scrollInterval.value = window.setInterval(async () => {
+    if (!containerRef.value) return;
+    if (
+      containerRef.value.scrollTop >=
+      containerRef.value.scrollHeight - containerRef.value.clientHeight
+    ) {
+      fetchNewCodeBlock();
+    } else {
+      containerRef.value.scrollTop += scrollSpeed;
     }
-    scrollInterval.value = window.setInterval(async () => {
-        if (!containerRef.value) return
-        if (containerRef.value.scrollTop >= (containerRef.value.scrollHeight - containerRef.value.clientHeight)) {
-            fetchNewCodeBlock()
-        } else {
-            containerRef.value.scrollTop += scrollSpeed;
-        }
-    }, 64);
+  }, 64);
 }
 
 onMounted(() => {
-    fetchNewCodeBlock()
+  fetchNewCodeBlock();
 });
 
 onUnmounted(() => {
-    if (scrollInterval.value) {
-        clearInterval(scrollInterval.value);
-        //clearInterval(fetchInterval.value)
-    }
+  if (scrollInterval.value) {
+    clearInterval(scrollInterval.value);
+    //clearInterval(fetchInterval.value)
+  }
 });
 </script>
 
 <template>
-    <div class="scroll-text" ref="containerRef">
-        <pre v-html="scrollTextHighlighted"></pre>
-    </div>
+  <div class="scroll-text" ref="containerRef">
+    <pre v-html="scrollTextHighlighted"></pre>
+  </div>
 </template>
 
 <style scoped>
 .scroll-text {
-    height: 100%;
-    font-family: monospace;
-    user-select: none;
-    overflow: hidden;
-    scroll-behavior: smooth;
-    border-radius: 16px;
-    border-top: 2px solid green;
-    border-bottom: 2px solid green;
-    padding: 0 16px;
+  border-top: 2px solid green;
+  border-bottom: 2px solid green;
+  border-radius: 16px;
+  padding: 0 16px;
+  height: 100%;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  font-family: monospace;
+  user-select: none;
 }
 
 @media (prefers-color-scheme: dark) {
-    .scrolling-text-box {
-        border-color: var(--vt-c-white-soft);
-    }
+  .scrolling-text-box {
+    border-color: var(--vt-c-white-soft);
+  }
 }
 </style>

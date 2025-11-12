@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import IconGithub from './icons/IconGithub.vue';
+import { RouterLink } from "vue-router";
+import IconGithub from "./icons/IconGithub.vue";
+import IconDiscord from "./icons/IconDiscord.vue";
+import IconEmail from "./icons/IconEmail.vue";
 </script>
 
 <template>
@@ -9,16 +11,21 @@ import IconGithub from './icons/IconGithub.vue';
       <RouterLink class="link" to="/">Home</RouterLink>
       <RouterLink class="link" to="/projects">Projects</RouterLink>
     </nav>
-    <div class="center-icon">
-      <img style="height:auto;" alt="" src="https://avatars.githubusercontent.com/u/46770859?v=4" width="56" height="56"
-        class="avatar avatar-user width-full border color-bg-default">
-    </div>
+    <div class="center"></div>
     <nav class="header-right">
-      <a class="link" href="https://github.com/CoroNaut?tab=repositories">
+      <a class="link" href="mailto:fractarevia@gmail.com" target="_blank">
+        <IconEmail />
+        Email
+      </a>
+      <a class="link" href="https://discordapp.com/users/1407403114994077798" target="_blank">
+        <IconDiscord />
+        Discord
+      </a>
+      <a class="link" href="https://github.com/CoroNaut?tab=repositories" target="_blank">
         <IconGithub />
         CoroNaut
       </a>
-      <a class="link" href="https://github.com/Fractalyst?tab=repositories">
+      <a class="link" href="https://github.com/Fractalyst?tab=repositories" target="_blank">
         <IconGithub />
         Fractalyst
       </a>
@@ -28,25 +35,26 @@ import IconGithub from './icons/IconGithub.vue';
 
 <style scoped>
 .header-right {
-  justify-content: right;
   align-content: center;
+  justify-content: right;
 }
 
-.center-icon {
+.center {
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   padding: 4px;
 }
 
 .app-header {
+  display: flex;
   position: sticky;
   top: 0;
-  width: 100%;
   background-color: var(--vt-c-white-soft);
   padding: 0 16px;
+  width: 100%;
   font-size: 20px;
-  display: flex;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,11 +64,10 @@ import IconGithub from './icons/IconGithub.vue';
 }
 
 nav {
-  height: min-content;
   display: flex;
-  width: 100%;
+  padding: 11px 8px;
+  height: min-content;
   text-align: center;
-  padding: 11px 8px
 }
 
 nav a.router-link-exact-active {

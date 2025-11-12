@@ -21,7 +21,7 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
   --vt-c-text-link: hsla(160, 100%, 37%, 1);
-  --vt-c-text-link-hover:hsla(160, 100%, 37%, 0.2);
+  --vt-c-text-link-hover: hsla(160, 100%, 37%, 0.2);
 }
 
 /* semantic color variables for this project */
@@ -62,27 +62,27 @@
 }
 
 body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
   transition:
     color 0.5s,
     background-color 0.5s;
+  background: var(--color-background);
+  min-height: 100vh;
+  color: var(--color-text);
+  font-size: 15px;
   line-height: 1.6;
   font-family:
     Inter,
     -apple-system,
     BlinkMacSystemFont,
-    'Segoe UI',
+    "Segoe UI",
     Roboto,
     Oxygen,
     Ubuntu,
     Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
     sans-serif;
-  font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
