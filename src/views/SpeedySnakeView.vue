@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import IconSpeedySnake from "@/components/icons/IconSpeedySnake.vue";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch, type Ref } from "vue";
 import { usePreferredColorScheme } from "@vueuse/core";
+import { getAllCookies, setCookie } from "@/scripts/utilities";
 
 const preferredColor = usePreferredColorScheme();
 
@@ -67,6 +68,7 @@ function startTimer() {
 function stopTimer() {
   clearInterval(timerIntervalId);
   timerStartTime.value = 0.0
+  timerString.value = formatMiliseconds(true)
 }
 
 type Coordinates = { x: number, y: number }
@@ -86,10 +88,14 @@ function randomizeApplePosition() {
       (!occupied ? { x, y } : null)
     ).filter((cell) => cell !== null)
   ) as { x: number; y: number }[];
+  if (allOpenCells.length == 0) {
+    return false
+  }
 
   const randomIndex = Math.floor(Math.random() * allOpenCells.length);
   const randomCell = allOpenCells[randomIndex]!;
   appleCoordinates = { x: randomCell.x, y: randomCell.y }
+  return true
 }
 
 function clearGameCanvas() {
@@ -182,7 +188,10 @@ function updateSnake(snakeDirection: snakeDirection) {
 
   // If there is an apple where we moved, keep the last segment of the snake, otherwise pop it.
   if (snakeSegments[0]!.x == appleCoordinates.x && snakeSegments[0]!.y == appleCoordinates.y) {
-    randomizeApplePosition();
+    if (!randomizeApplePosition()) {
+      scenarioWinner();
+      return true
+    }
   } else {
     const lastSegment = snakeSegments.pop()!;
     gridCellsOccupied[lastSegment.x]![lastSegment.y] = false
@@ -202,25 +211,36 @@ function updateSnake(snakeDirection: snakeDirection) {
 
   stopTimer()
 
-  // If all cells are filled, we won
-  const filledGrid = gridCellsOccupied.every((col) => {
-    col.every(value => {
-      return value
-    })
-  })
-
-  if (filledGrid) {
-    scenarioWinner();
-    return true
-  } else {
-    // We have no directions to go, we lost
-    scenarioLoser();
-    return false
-  }
+  // We have no directions to go, we lost
+  scenarioLoser();
+  return false
 }
 
-function scenarioWinner() {
+const shownHighScores: Ref<{ uuid: string, time: string }[]> = ref([])
 
+function scenarioWinner() {
+  const uuid = crypto.randomUUID()
+  setCookie(uuid.toString(), timerString.value)
+  const cookies = getAllCookies()
+  cookies.forEach((cookie => {
+    const split = cookie.split('=')
+    if (shownHighScores.value.find((highscore) => {
+      return highscore.uuid == split[0]
+    })) return
+    shownHighScores.value.push({ uuid: split[0]!, time: split[1]! })
+  }))
+  shownHighScores.value.sort((a, b) => {
+    const aSplit = a.time.split(':')
+    const bSplit = b.time.split(':')
+    for (let x = 0; x <= 3; x++) {
+      if (parseInt(aSplit[x]!) > parseInt(bSplit[x]!)) {
+        return 1
+      } else {
+        return -1
+      }
+    }
+    return 0
+  })
 }
 
 function scenarioLoser() {
@@ -229,7 +249,6 @@ function scenarioLoser() {
 
 function initializeSnake() {
   snakeSegments.length = 0
-  console.log(gridCellsOccupied)
 
   // Generate random head position
   const headX = Math.floor((Math.random() * (gridSize.value - 2)) + 1);
@@ -293,6 +312,9 @@ function InitGameState() {
 onMounted(() => {
   InitGameState()
 })
+onUnmounted(() => {
+  stopTimer();
+})
 </script>
 
 <template>
@@ -309,7 +331,10 @@ onMounted(() => {
           <input type="range" v-model="gridSize" min="5" max="20" step="1" />
           <label> 20 </label>
         </div>
-        <div>
+        <div class="personal-highscores">
+          <ul>
+            <li v-for="highscore of shownHighScores" :key="highscore.uuid">{{ highscore.time }}</li>
+          </ul>
         </div>
       </div>
       <div @keydown="handleArrowKeys" class="speedysnake-game-box" tabindex="0">
