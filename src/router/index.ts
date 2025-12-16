@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ProjectsView from "../views/ProjectsView.vue";
 import SpeedySnakeView from "../views/SpeedySnakeView.vue";
+// import TestingView from "@/views/TestingView.vue";
+import EyeProblemView from "@/views/EyeProblemView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +22,11 @@ const router = createRouter({
       path: "/speedysnake",
       name: "speedysnake",
       component: SpeedySnakeView,
+    },
+    {
+      path: "/testing",
+      name: "testing",
+      component: EyeProblemView,
     },
   ],
 });
