@@ -22,15 +22,20 @@ for (const canvas of Object.values(gameCanvases)) {
 
 const gridSize = ref(6);
 
-function createEmptyGrid(size: number): boolean[][] {
-  return Array.from({ length: size }, () => new Array(size).fill(false))
+function setAllCellsFalse() {
+  gridCellsOccupied = Array.from({ length: gridSize.value }, () => new Array(gridSize.value).fill(false))
 }
 
-let gridCellsOccupied: boolean[][] = createEmptyGrid(gridSize.value)
+let gridCellsOccupied: boolean[][] = []
 
 const timerStartTime = ref(0.0);
 const timerString = ref("")
 let timerIntervalId = 0;
+
+// Whether the game container currently has focus-within
+const gameHasFocus = ref(false);
+
+// focus state used to show/hide overlay
 
 const directions: Coordinates[] = [
   { x: 0, y: -1 }, // up
@@ -67,6 +72,8 @@ function startTimer() {
 }
 function stopTimer() {
   clearInterval(timerIntervalId);
+}
+function clearTimer() {
   timerStartTime.value = 0.0
   timerString.value = formatMiliseconds(true)
 }
@@ -291,9 +298,16 @@ function handleArrowKeys(event: KeyboardEvent) {
   }
 }
 
+function onResetClick() {
+  handleReset()
+  // Ensure the game-box keeps or regains focus after reset
+  focusGameBox()
+}
+
 function handleReset() {
-  gridCellsOccupied = createEmptyGrid(gridSize.value)
+  setAllCellsFalse()
   stopTimer()
+  clearTimer()
   clearGameCanvas()
   drawGrid();
   initializeSnake()
@@ -302,10 +316,27 @@ function handleReset() {
   drawSnake();
 }
 
+function onFocusIn() {
+  handleReset()
+  gameHasFocus.value = true
+}
+
+function onFocusOut() {
+  gameHasFocus.value = false
+  stopTimer()
+}
+
+function focusGameBox() {
+  const el = document.querySelector('.speedysnake-game-box') as HTMLElement | null
+  gameHasFocus.value = true
+  el?.focus()
+}
+
 
 function InitGameState() {
   const container = document.getElementById('speedysnake-game-container')
   container?.append(gameCanvases.gameView)
+  // Do not focus the game box on initial load — only set up state
   handleReset();
 }
 
@@ -314,6 +345,7 @@ onMounted(() => {
 })
 onUnmounted(() => {
   stopTimer();
+  clearTimer();
 })
 </script>
 
@@ -325,6 +357,9 @@ onUnmounted(() => {
           <IconSpeedySnake />
           Speedy Speedrun Snake!
         </h1>
+        <h2>
+          Controls: ⬅️➡️⬆️⬇️
+        </h2>
         <div class="grid-size-option">
           <label> Choose your grid:</label>
           <label> 5 </label>
@@ -337,11 +372,17 @@ onUnmounted(() => {
           </ul>
         </div>
       </div>
-      <div @keydown="handleArrowKeys" class="speedysnake-game-box" tabindex="0">
-        <div class="speedysname-game-container" id="speedysnake-game-container"></div>
+      <div @keydown="handleArrowKeys" @focusin="onFocusIn" @focusout="onFocusOut" class="speedysnake-game-box"
+        tabindex="0">
+        <div class="speedysnake-game-container" id="speedysnake-game-container"></div>
+
+        <div class="click-overlay" v-show="!gameHasFocus" @click="focusGameBox">
+          Click inside to play
+        </div>
+
         <div class="game-footer">
           <label>{{ timerString }}</label>
-          <button @click="handleReset">Reset</button>
+          <button type="button" @pointerdown.prevent @click="onResetClick">Reset</button>
         </div>
       </div>
     </div>
@@ -400,16 +441,36 @@ onUnmounted(() => {
   border-style: solid;
   border-width: 0;
   padding: 12px;
+  position: relative;
+  outline: none;
 }
 
-.speedysname-game-container {
+.speedysnake-game-container {
   border-style: solid;
   border-width: 2px;
   border-color: var(--vt-c-black-soft);
+  line-height: 0;
+}
+
+.click-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
+  font-size: 24px;
+  border-radius: 12px;
+  z-index: 20;
+  cursor: pointer;
 }
 
 @media (prefers-color-scheme: dark) {
-  .speedysname-game-container {
+  .speedysnake-game-container {
     border-color: var(--vt-c-white-soft);
   }
 }
