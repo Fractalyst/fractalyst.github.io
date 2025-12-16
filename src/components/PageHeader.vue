@@ -10,33 +10,53 @@ import { Icon } from "@iconify/vue";
   <div class="app-header">
     <nav>
       <RouterLink class="link" to="/">
-        <div class="router-icon"><Icon icon="ic:outline-home" width="25" height="25" /></div>
+        <div class="router-icon">
+          <Icon icon="ic:outline-home" width="25" height="25" />
+        </div>
         <div class="router-text">Home</div>
       </RouterLink>
       <RouterLink class="link" to="/projects">
-        <div class="router-icon"><Icon icon="mdi:book-outline" width="25" height="25" /></div>
+        <div class="router-icon">
+          <Icon icon="mdi:book-outline" width="25" height="25" />
+        </div>
         <div class="router-text">Projects</div>
       </RouterLink>
       <RouterLink class="link" to="/speedysnake">
-        <div class="router-icon"><Icon icon="game-icons:sand-snake" width="25" height="25" /></div>
+        <div class="router-icon">
+          <Icon icon="game-icons:sand-snake" width="25" height="25" />
+        </div>
         <div class="router-text">SpeedySnake Game</div>
+      </RouterLink>
+      <RouterLink class="link" to="/testing">
+        <!-- <div class="router-icon">
+          <Icon icon="game-icons:sand-snake" width="25" height="25" />
+        </div> -->
+        <div class="router-text">testing</div>
       </RouterLink>
     </nav>
     <nav class="header-right">
       <a class="link" href="mailto:fractarevia@gmail.com" target="_blank">
-        <div class="link-icon"><IconEmail /></div>
+        <div class="link-icon">
+          <IconEmail />
+        </div>
         <div class="link-text">Email</div>
       </a>
       <a class="link" href="https://discordapp.com/users/1407403114994077798" target="_blank">
-        <div class="link-icon"><IconDiscord /></div>
+        <div class="link-icon">
+          <IconDiscord />
+        </div>
         <div class="link-text">Discord</div>
       </a>
       <a class="link" href="https://github.com/CoroNaut?tab=repositories" target="_blank">
-        <div class="link-icon"><IconGithub /></div>
+        <div class="link-icon">
+          <IconGithub />
+        </div>
         <div class="link-text">CoroNaut</div>
       </a>
       <a class="link" href="https://github.com/Fractalyst?tab=repositories" target="_blank">
-        <div class="link-icon"><IconGithub /></div>
+        <div class="link-icon">
+          <IconGithub />
+        </div>
         <div class="link-text">Fractalyst</div>
       </a>
     </nav>
@@ -86,9 +106,11 @@ import { Icon } from "@iconify/vue";
   .link-text {
     display: none;
   }
+
   .router-icon {
     display: flex;
   }
+
   .router-text {
     display: none;
   }
