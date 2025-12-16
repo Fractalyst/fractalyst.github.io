@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ProjectsView from "../views/ProjectsView.vue";
 import SpeedySnakeView from "../views/SpeedySnakeView.vue";
-// import TestingView from "@/views/TestingView.vue";
+import TestingView from "@/views/TestingView.vue";
 import EyeProblemView from "@/views/EyeProblemView.vue";
 
 const router = createRouter({
@@ -27,6 +27,11 @@ const router = createRouter({
       path: "/testing",
       name: "testing",
       component: EyeProblemView,
+    },
+    {
+      path: "/testing2",
+      name: "testing2",
+      component: TestingView,
     },
   ],
 });
