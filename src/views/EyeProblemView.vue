@@ -7,9 +7,10 @@ const wrapperStyle = reactive<{ marginLeft: string; marginRight: string }>({
   marginRight: "0px"
 })
 
-const bgColors = ['gray', 'skyblue']
+const bgColors = ['skyblue', 'gray']
 const backgroundColor = ref<string>(bgColors[0]!)
 const DOT_COUNT = 50
+const DOT_SIZE = ref(1.4)
 const DOT_SPEED = 450
 
 type Dot = {
@@ -22,7 +23,7 @@ type Dot = {
   color: string
 }
 
-const ctx: CanvasRenderingContext2D | null = null
+let ctx: CanvasRenderingContext2D | null = null
 const dots: Dot[] = []
 let animationId = 0
 
@@ -73,7 +74,7 @@ function loop(time: number) {
     dot.y += dot.vy * dt
 
     ctx.fillStyle = dot.color
-    ctx.fillRect(Math.floor(dot.x), Math.floor(dot.y), 1, 1)
+    ctx.fillRect(Math.floor(dot.x), Math.floor(dot.y), DOT_SIZE.value, DOT_SIZE.value)
   }
 
   animationId = requestAnimationFrame(loop)
@@ -88,6 +89,12 @@ onMounted(() => {
     wrapperStyle.marginRight = `-${style.marginRight}`
   }
 
+  if (canvasRef.value) {
+    ctx = canvasRef.value.getContext("2d")
+    canvasRef.value.width = canvasRef.value.clientWidth
+    canvasRef.value.height = canvasRef.value.clientHeight
+  }
+
   // Create initial dots
   for (let i = 0; i < DOT_COUNT; i++) {
     dots.push(createDot())
@@ -99,6 +106,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   cancelAnimationFrame(animationId)
 })
+
 </script>
 
 <template>
@@ -107,6 +115,13 @@ onBeforeUnmount(() => {
       <button v-for="color in bgColors" :key="color" type="button" @click="setBackground(color)">
         {{ color }}
       </button>
+      <label>
+        Dot size:
+      </label>
+      <input type="range" v-model="DOT_SIZE" min="1" max="3" step="0.1" />
+      <label>
+        {{ DOT_SIZE }}
+      </label>
     </div>
 
     <div class="canvas-wrapper">
