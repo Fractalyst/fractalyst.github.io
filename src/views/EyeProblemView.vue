@@ -12,6 +12,7 @@ const backgroundColor = ref<string>(bgColors[0]!)
 const DOT_COUNT = 50
 const DOT_SIZE = ref(1.4)
 const DOT_SPEED = 450
+const DOT_BLACK_CHANCE = 0.4
 
 type Dot = {
   x: number
@@ -39,7 +40,7 @@ function createDot(): Dot {
     vy: (Math.random() - 0.5) * DOT_SPEED,
     life: 0,
     maxLife: 0.02 + Math.random() * 0.08,
-    color: Math.random() < 0.5 ? "#000000" : "#ffffff"
+    color: Math.random() < DOT_BLACK_CHANCE ? "#000000" : "#ffffff"
   }
 }
 
