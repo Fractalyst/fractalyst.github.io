@@ -8,7 +8,7 @@ import HeaderLink from './HeaderLink.vue';
       <HeaderLink to="/" text="Home" icon="ic:outline-home" />
       <HeaderLink to="/projects" text="Projects" icon="mdi:book-outline" />
       <HeaderLink to="/speedysnake" text="SpeedySnake Game" icon="game-icons:sand-snake" />
-      <HeaderLink to="/testing" text="testing" icon="qlementine-icons:test-16" />
+      <!-- <HeaderLink to="/testing" text="testing" icon="qlementine-icons:test-16" /> -->
     </nav>
     <nav class="header-right">
       <HeaderLink href="mailto:fractarevia@gmail.com" icon="ic:twotone-email" rightSide />
