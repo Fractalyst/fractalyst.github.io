@@ -50,10 +50,18 @@ import IconVue from "@/components/icons/IconVue.vue";
       </template>
       <ul>
         <li>
-          Python projects<br />
+          CDDA Map Editing Utility<br />
           Map editing utility for CDDA (Cataclysm Dark Days Ahead)<br />
           Copy and paste sections of map from one save file to another<br />
           <a class="link" href="https://github.com/CoroNaut/CDDA-Chunk-mover" target="_blank">
+            View on Github
+          </a>
+        </li>
+        <li>
+          Internet Ping Logger<br />
+          Logs the ping result to various internet servers over time. Useful for documenting internet
+          connectivity.<br />
+          <a class="link" href="https://github.com/Fractalyst/internet_ping_logger" target="_blank">
             View on Github
           </a>
         </li>
@@ -90,10 +98,7 @@ import IconVue from "@/components/icons/IconVue.vue";
     </LanguageBlock>
     <LanguageBlock>
       <template #icon>
-        <a
-          href="https://www.mathworks.com/products/matlab.html?s_tid=hp_products_matlab"
-          target="_blank"
-        >
+        <a href="https://www.mathworks.com/products/matlab.html?s_tid=hp_products_matlab" target="_blank">
           <IconMATLAB />
         </a>
       </template>
@@ -102,6 +107,13 @@ import IconVue from "@/components/icons/IconVue.vue";
           MATLAB computing platform<br />
           Created several small projects revolving around images<br />
           <a class="link" href="https://github.com/CoroNaut/octave" target="_blank">
+            View on Github
+          </a>
+        </li>
+        <li>
+          Various Octave Algorithms<br />
+          A collection of algorithms implemented in Octave.<br />
+          <a class="link" href="https://github.com/Fractalyst/Various-Octave-Algorithms" target="_blank">
             View on Github
           </a>
         </li>
